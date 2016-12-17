@@ -46,7 +46,8 @@ defmodule API.Mixfile do
     [
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.10.0"},
-      {:plug, "~> 1.3"}
+      {:plug, "~> 1.3"},
+      {:poison, "~> 3.0"}
     ]
   end
 end
