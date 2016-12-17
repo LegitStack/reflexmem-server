@@ -8,21 +8,16 @@ defmodule API.Router do
 
   post "/v1/customer/authentication" do
     test(_process_body(conn))
-    case _process_body(conn) do
-      {:ok, body} ->
-        body.email
-        body.subscription
-        send_resp(conn, 200, Poison.encode! # TODO: Pass back the authentication token.)
-      {:empty, msg} ->
-        send_resp(conn, 404, Poison.encode! msg)
-      {:error, _} ->
-        send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
-    end
   end
 
-  def test({:ok, body}), do: # Do something
+  def test({:ok, body}) do
+    body.email
+    body.subscription
+    send_resp(conn, 200, Poison.encode!
+    # TODO: Pass back the authentication token.)
+  end
   def test({:empty, msg}), do: send_resp(conn, 404, Poison.encode! msg)
-  def test({:error, _}), do: # Do something
+  def test({:error, _}), do: send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
 
   get "/v1/customer/authentication" do
   end
