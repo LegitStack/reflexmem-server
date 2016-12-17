@@ -1,7 +1,7 @@
 defmodule API.Router do
   require Logger
-  import Plug.Conn
-  use Plug.Router
+  import  Plug.Conn
+  use     Plug.Router
 
   plug :match
   plug :dispatch
@@ -14,10 +14,10 @@ defmodule API.Router do
     body.email
     body.subscription
     send_resp(conn, 200, Poison.encode!
-    # TODO: Pass back the authentication token.)
+    # to do: Pass back the authentication token.)
   end
-  def test({:empty, msg}), do: send_resp(conn, 404, Poison.encode! msg)
-  def test({:error, _}), do: send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
+  def test({:empty, msg}),  do: send_resp(conn, 404, Poison.encode! msg)
+  def test({:error, _  }),  do: send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
 
   get "/v1/customer/authentication" do
   end
