@@ -6,6 +6,15 @@ defmodule API.Router do
   plug :match
   plug :dispatch
 
+  post "/v1/customer/testconnection" do
+    test(_process_body(conn))
+  end
+  def test({:ok, body}) do
+    body.email
+    body.subscription
+    send_resp(conn, 200, Poison.encode! "")
+  end
+
   post "/v1/customer/authentication" do
     test(_process_body(conn))
   end
@@ -13,8 +22,7 @@ defmodule API.Router do
   def test({:ok, body}) do
     body.email
     body.subscription
-    send_resp(conn, 200, Poison.encode!
-    # to do: Pass back the authentication token.)
+    send_resp(conn, 200, Poison.encode! # to do: Pass back the authentication token.)
   end
   def test({:empty, msg}),  do: send_resp(conn, 404, Poison.encode! msg)
   def test({:error, _  }),  do: send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
