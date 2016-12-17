@@ -7,12 +7,11 @@ defmodule API.Router do
   plug :dispatch
 
   post "/v1/customer/testconnection" do
-    test(_process_body(conn))
+    testconnection(_process_body(conn))
   end
-  def test({:ok, body}) do
-    body.email
-    body.subscription
-    send_resp(conn, 200, Poison.encode! "")
+  def testconnection({:ok, body}) do
+    # store in db or whatever.
+    send_resp(conn, 200, Poison.encode! %{email: body.email, subscription: body.subscription}) #body works too
   end
 
   post "/v1/customer/authentication" do
