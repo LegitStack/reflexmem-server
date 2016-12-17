@@ -7,17 +7,17 @@ defmodule API.Router do
   plug :dispatch
 
   post "/v1/customer/authentication" do
-    test(_process_body(conn))
+    test(_process_body(conn), conn)
   end
 
-  def test({:ok, body}) do
+  def test({:ok, body}, conn) do
     body.email
     body.subscription
-    send_resp(conn, 200, Poison.encode!
+    send_resp(conn, 200, Poison.encode! body)
     # to do: Pass back the authentication token.)
   end
-  def test({:empty, msg}),  do: send_resp(conn, 404, Poison.encode! msg)
-  def test({:error, _  }),  do: send_resp(conn, 500, Poison.encode! %{:error, "Something went wrong, and it's all your fault."})
+  def test({:empty, msg}, conn),  do: send_resp(conn, 404, Poison.encode! msg)
+  def test({:error, _  }, conn),  do: send_resp(conn, 500, Poison.encode! %{error: "Something went wrong, and it's all your fault."})
 
   get "/v1/customer/authentication" do
   end
